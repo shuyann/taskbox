@@ -3,7 +3,6 @@ import {
   createSlice,
   createAsyncThunk,
 } from "@reduxjs/toolkit";
-import { build } from "@storybook/builder-webpack5";
 
 const defaultTasks = [
   { id: "1", title: "Something", state: "TASK_INBOX" },
@@ -42,24 +41,24 @@ const TasksSlice = createSlice({
       }
     },
   },
-  // extraReducers(builder) {
-  //   builder
-  //     .addCase(fetchTasks.pending, (state) => {
-  //       state.status = "loading";
-  //       state.error = null;
-  //       state.tasks = [];
-  //     })
-  //     .addCase(fetchTasks.fulfilled, (state, action) => {
-  //       state.status = "succeeded";
-  //       state.error = null;
-  //       state.tasks = action.payload;
-  //     })
-  //     .addCase(fetchTasks.rejected, (state) => {
-  //       state.status = "failed";
-  //       state.error = "Something went wrong";
-  //       state.tasks = [];
-  //     });
-  // },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchTasks.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+        state.tasks = [];
+      })
+      .addCase(fetchTasks.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.error = null;
+        state.tasks = action.payload;
+      })
+      .addCase(fetchTasks.rejected, (state) => {
+        state.status = "failed";
+        state.error = "Something went wrong";
+        state.tasks = [];
+      });
+  },
 });
 
 export const { updateTaskState } = TasksSlice.actions;
